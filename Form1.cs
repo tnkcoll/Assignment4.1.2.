@@ -4,8 +4,8 @@ namespace Assignment4._1._2_
 {
     public partial class Calculator : Form, ICalculator
     {
+        //Declare and Initialize Variables
         double num1 = 0;
-        double num2 = 0;
         string operation = "";
 
         public Calculator()
@@ -13,41 +13,49 @@ namespace Assignment4._1._2_
             InitializeComponent();
         }
 
+        //Use the Add method from the ICalculator interface
         public void Add()
         {
             SetOperation("+");
         }
 
+        //Use the Subtract method from the ICalculator interface
         public void Subtract()
         {
             SetOperation("-");
         }
 
+        //Use the Multiply method from the ICalculator interface
         public void Multiply()
         {
             SetOperation("*");
         }
 
+        //Use the Divide method from the ICalculator interface
         public void Divide()
         {
             SetOperation("/");
         }
 
+        //Calls the Add method when the plus button is pressed
         private void PlusButton_Click(object sender, EventArgs e)
         {
             Add();
         }
-        
+
+        //Calls the Subtract method when the plus button is pressed
         private void SubtractButton_Click(object sender, EventArgs e)
         {
             Subtract();
         }
-        
+
+        //Calls the Multiply method when the plus button is pressed
         private void MultiplyButton_Click(object sender, EventArgs e)
         {
             Multiply();
         }
 
+        //Calls the Divide method when the plus button is pressed
         private void DivideButton_Click(object sender, EventArgs e)
         {
             Divide();
@@ -55,40 +63,56 @@ namespace Assignment4._1._2_
 
         private void EqualsButton_Click(object sender, EventArgs e)
         {
-            num2 = Convert.ToInt32(ResultTextBox.Text);
+            //Declare and Initialize variables
+            double num2 = Convert.ToInt32(ResultTextBox.Text);
             double answer = 0;
+            
+            //Decide what to do based on the mathematical operater 
             switch (operation) 
             { 
+                //Place the whole mathematical operation in the operation text box, perform the
+                //add operation and place the result in the result text box
                 case "+":
                     OperationTextBox.Text = OperationTextBox.Text +  " " + ResultTextBox.Text;
                     answer = num1 + num2;
                     ResultTextBox.Text = Convert.ToString(answer);
+                    num1 = answer;
                     break;
+                //Place the whole mathematical operation in the operation text box, perform the
+                //subtraction operation and place the result in the result text box
                 case "-":
                     OperationTextBox.Text = OperationTextBox.Text + " " + ResultTextBox.Text;
                     answer = num1 - num2;
                     ResultTextBox.Text = Convert.ToString(answer);
+                    num1 = answer;
                     break;
+                //Place the whole mathematical operation in the operation text box, perform the
+                //mulitiplication operation and place the result in the result text box
                 case "*":
                     OperationTextBox.Text = OperationTextBox.Text + " " + ResultTextBox.Text;
                     answer = num1 * num2;
                     ResultTextBox.Text = Convert.ToString(answer);
+                    num1 = answer;
                     break;
+                //Place the whole mathematical operation in the operation text box, perform the
+                //division operation and place the result in the result text box
                 case "/":
                     OperationTextBox.Text = OperationTextBox.Text + " " + ResultTextBox.Text;
                     if (num2 != 0)
                     {
                         answer = num1 + num2;
                         ResultTextBox.Text = Convert.ToString(answer);
+                        num1 = answer;
                     }
                     else
                     {
-                        ResultTextBox.Text = "Error!"; 
+                        ResultTextBox.Text = "Error!"; //results in error if user tries to divide by two
                     }
                     break;
             }
         }
 
+        //The next eleven event handlers call the PrintResult method and passes the face value of the button when the button is pressed
         private void ZeroButton_Click(object sender, EventArgs e)
         {
             PrintResult("0");
@@ -144,12 +168,16 @@ namespace Assignment4._1._2_
             PrintResult(".");
         }
 
+        //This event handler clears the operations text box and sets the result text box to zero
         private void ClearButton_Click(object sender, EventArgs e)
         {
             ResultTextBox.Text = "0";
             OperationTextBox.Text = "";
         }
 
+
+        //Gets the first number of the mathematical operation, resets the result output to zero and
+        //places the first part of the mathematical operation in the operation text box
         private void SetOperation(string op)
         {
             num1 = Convert.ToInt32(ResultTextBox.Text);
@@ -158,6 +186,7 @@ namespace Assignment4._1._2_
             OperationTextBox.Text = num1 + " " + operation;
         }
 
+        //Prints the number of the button hit into the result text box.
         private void PrintResult(string entry)
         {
             if (ResultTextBox.Text != null && ResultTextBox.Text == "0")
